@@ -47,7 +47,7 @@ insulin_data <- stack(pheno_data[,c(15,21,24,27)])
 
 insulin_data[,2] <- as.character(insulin_data[,2])
 
-insulin_data
+colnames(insulin_data)[2] <- "num_week"
 
 for(i in 1:1512){
   if(insulin_data[i,2] == "Ins_0min"){
@@ -64,7 +64,8 @@ for(i in 1:1512){
   }
 }
 
+Mouse.ID <- as.character(pheno_data$Mouse.ID)
+insulin_data <- cbind(Mouse.ID, insulin_data)
 
-week_weight_numbers <- as.numeric(sub(pattern = "wk", replacement = "", x = 
-                                        sub(pattern = "weight_", replacement = "", weight_data2$ind)
-))
+quartz()
+ggplot(data=insulin_data, mapping = aes(y = values, x = num_week, group = Mouse.ID))+ geom_line()

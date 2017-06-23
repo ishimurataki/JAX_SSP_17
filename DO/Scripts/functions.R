@@ -27,4 +27,11 @@ pheno.pheno.cor <- function(pheno.name1, pheno.name2){
   return(cor(log(pheno_data[,which(colnames(pheno_data)==pheno.name1)]), log(pheno_data[,which(colnames(pheno_data)==pheno.name2)]), use = "complete.obs"))
 }
 
+# function to compute pvalues adjusted for one covariate
+pvalue_1cov <- function(x,f,c){
+  fit1 <- lm(x ~ c+f)
+  fit0 <- lm(x ~ c)
+  anova(fit0, fit1)[2,6]
+}
+
 

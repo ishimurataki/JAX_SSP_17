@@ -6,7 +6,7 @@
 rm(list=ls())
 
 # set working directory to the physical location of the data
-setwd("/Users/s-ishimt/Desktop/DO_data")
+setwd("/Users/s-ishimt/Desktop/Jax_SSP'17/DO/DO_data")
 
 #importation of the DO data
 load("DO378_islet.RData")
@@ -29,7 +29,7 @@ food_columns <- which(substr(colnames(pheno_data), 1, 5) == "food_")[
 food_data <- pheno_data[,food_columns]
 food_data2 <- stack(food_data)
 week_numbers <- as.numeric(sub(pattern = "wk", replacement = "", x = 
-  sub(pattern = "food_", replacement = "", food_data2$ind)
+                                 sub(pattern = "food_", replacement = "", food_data2$ind)
 ))
 food_data2 <- cbind(food_data2, week_numbers)
 
@@ -43,7 +43,7 @@ weight_columns <- which(substr(colnames(pheno_data), 1, 7) == "weight_")[
 weight_data <- pheno_data[,weight_columns]
 weight_data2 <- stack(weight_data)
 week_weight_numbers <- as.numeric(sub(pattern = "wk", replacement = "", x = 
-                                 sub(pattern = "weight_", replacement = "", weight_data2$ind)
+                                        sub(pattern = "weight_", replacement = "", weight_data2$ind)
 ))
 weight_data2 <- cbind(weight_data2, week_weight_numbers)
 
@@ -54,13 +54,13 @@ weight_data2 <- cbind(weight_data2, pheno_data$coat_color)
 colnames(weight_data2)[5] <- "coat_color"
 
 weight_data2 <- cbind(weight_data2, pheno_data$Glu_tAUC)
-colnames(weight_data2)[7] <- "Glu_tAUC"
+colnames(weight_data2)[6] <- "Glu_tAUC"
 
-
+weight_data2 <- cbind(weight_data2, gene.expression.rankz("Pyy"))
+colnames(weight_data2)[7] <- "Pyy.exp"
 
 # creating cool graphics with weight
-ggplot(data=weight_data2, mapping = aes(y = values, x = week_weight_numbers, by = Mouse.ID, color = Glu_tAUC))+ geom_line(scale_fill_distiller(pallete="Blues"))
-
+ggplot(data=weight_data2, mapping = aes(y = values, x = week_weight_numbers, by = Mouse.ID, color = Glu_tAUC))+ geom_line()
 
 
 for(i in 1:157){
