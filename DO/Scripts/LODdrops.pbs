@@ -1,0 +1,14 @@
+#!/bin/bash
+#PBS -l walltime=8:00:00
+#PBS -N LODdrops
+#PBS -q batch
+
+# Do whatever taki’s code does
+
+module load R/3.3.2
+Rscript /home/s-ishimt/
+LODdrops.R
+
+qsub -q short -l nodes=1:ppn=1
+
+qsub -q short -l nodes=1:ppn=1,walltime=3:59:00 -I

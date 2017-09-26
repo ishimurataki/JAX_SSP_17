@@ -6,7 +6,7 @@
 rm(list=ls())
 
 # set working directory to the physical location of the data
-setwd("/Users/s-ishimt/Desktop/Jax_SSP'17/DO/DO_data")
+setwd("/Users/s-ishimt/Desktop/Jax_SSP_17/DO/DO_data")
 
 #importation of the DO data
 load("DO378_islet.RData")
@@ -20,7 +20,7 @@ pheno_data <- pheno_data[match(x=annot.samples$Mouse.ID, table=pheno_data$Mouse.
 stopifnot(annot.samples$Mouse.ID == pheno_data$Mouse.ID)
 
 # exportation of newly created csv file
-write.csv(x=pheno_data, file="usable_clin_pheno_data", row.names = FALSE)
+write.csv(x=pheno_data, file="usable_clin_pheno_data.csv", row.names = FALSE)
 
 # create data frame with just food consumption
 food_columns <- which(substr(colnames(pheno_data), 1, 5) == "food_")[

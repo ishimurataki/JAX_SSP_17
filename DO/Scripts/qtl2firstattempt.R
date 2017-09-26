@@ -13,7 +13,7 @@ library(RSQLite)
 library(dplyr)
 
 # set working directory to the physical location of the data
-setwd("/Users/s-ishimt/Desktop/Jax_SSP'17/DO/DO_data")
+setwd("/Users/s-ishimt/Desktop/Jax_SSP_17/DO/DO_data")
 
 #importation of the DO data
 load("DO378_islet.RData")
@@ -40,7 +40,7 @@ addcovar <- model.matrix(~Sex + Generation + diet_days, data=annot.samples)[,-1]
 #########
 # Scan1 #
 #########
-qtl <- scan1(genoprobs = probs, pheno = log(pheno_data[,55,drop = FALSE]),
+qtl <- scan1(genoprobs = probs, pheno = log(pheno_data[,12,drop = FALSE]),
             kinship = K, addcovar = addcovar, cores = 4, reml=TRUE)
 
 str(qtl)
@@ -54,8 +54,8 @@ quartz()
 plot_scan1(x = qtl, map = map, lodcolumn = 1, main = colnames(qtl)[1])
 
 # Calculate linear model coefficients on Chr 14.
-chr <- 1
-qtl.coef = scan1coef(genoprobs = probs[,chr], pheno = log(pheno_data[,55,drop = FALSE]),
+chr <- 7
+qtl.coef = scan1coef(genoprobs = probs[,chr], pheno = log(pheno_data[,12,drop = FALSE]),
                      kinship = K[[chr]], addcovar = addcovar)
 
 # Plot coefficients with LOD cruve.
@@ -64,13 +64,11 @@ plot(x = qtl.coef, map = map[[chr]], columns = 1:8, col = CCcolors,
      scan1_output = qtl, main = colnames(qtl)[1])
 
 # Calculate BLUP coefficients on Chr 14.
-quartz()
-qtl.blup <- scan1blup(genoprobs = probs[,chr], pheno = log(pheno_data[,55,drop = FALSE]),
+
+qtl.blup <- scan1blup(genoprobs = probs[,chr], pheno = log(pheno_data[,12,drop = FALSE]),
                      kinship = K[[chr]], addcovar = addcovar, cores = 4)
 
+quartz()
 plot(x = qtl.blup, map = map[[chr]], columns = 1:8, col = CCcolors,
      scan1_output = qtl, main = colnames(qtl)[1])
-
-
-
 

@@ -4,7 +4,7 @@
 #########################################################################
 
 # load clinical phenotype data
-pheno_data <- read.csv("usable_clin_pheno_data.csv", as.is = TRUE)
+pheno_data <- read.csv("/Users/s-ishimt/Desktop/Jax_SSP_17/DO/DO_data/usable_clin_pheno_data.csv", as.is = TRUE)
 
 # load library
 library(dplyr)
@@ -59,5 +59,5 @@ for(i in 1:11){
 df2 <- cbind(annot.mrna$id, annot.mrna$symbol, df2)
 
 # exportation of newly created csv file
-write.csv(x=df2, file="Pvaluetable_11clinpheno.csv", row.names = FALSE)
+write.csv(x=df2, file="/Users/s-ishimt/Desktop/Jax_SSP_17/DO/Derived_Data/Pvaluetable_11clinpheno.csv", row.names = FALSE)
 
